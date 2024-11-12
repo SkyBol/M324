@@ -16,11 +16,10 @@ Github Projects: Kanban
 Excel
 
 ### Dokumentation
-
-Sie werden eine Dokumentation führen über verschiedene Themen. Lesen Sie sich ein was erwartet wird und setzen Sie die Umgebung entsprechend auf/um.
+Dokumentation im Folder 'Dokumentation' zu finden
 
 ### Persönliches Repository
-Ein persönliches Repository ist dann notwendig, falls Sie persönliche Dateien führen möchte wie z.B. ein Lernjournal oder ein Lernportfolio etc. Diese Inhalte dürfen nicht im gleichen Repository wie die Gruppeninhalte geführt werden (auch nicht auf einem anderen Branch).
+Wird auf Branches in diesem Repo geführt. Diese Branches müssen von den Github Actions ausgeschlossen werden!
 
 # Band und Alben
 ## Theorieinhalte
