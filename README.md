@@ -6,10 +6,14 @@
 
 Die Git Commit-Mesages sollten standartisiert sein:
 
+- Beginnt mit {BUA(Band und Alben)}-{Task Nummer}:
 - Die Message sollte in Englisch sein
 - Das erste Wort sollte immer ein Verb sein
-- Das Verb sollte in der Form von "it _verb_ + s" sein
+- Das Verb sollte im Infinitiv sein
 - Falls mehrer Changes hinzugefügt wurden, sollten diese in einer liste (mit "-") aufgeführt werden
+
+#### Beispiel:
+git commit -m "BUA-2: Document The Three Ways"
 
 ## Wahl Infrastruktur
 
