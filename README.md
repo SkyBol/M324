@@ -24,5 +24,8 @@ Wird auf Branches in diesem Repo geführt. Diese Branches müssen von den Github
 # Band und Alben
 ## Theorieinhalte
 ## Themenblöcke
+[Application and Technology](Dokumentation/Application-Technology.md)
+[Branching and Versioning](Dokumentation/Branching-Versioning.md)
+[Meetings und Prozesse](Dokumentation/Meetings-Prozesse.md)
 ## Andere Links
 
