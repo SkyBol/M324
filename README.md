@@ -50,8 +50,8 @@ Wird auf Branches in diesem Repo geführt. Diese Branches müssen von den Github
 
 ## Themenblöcke
 
-[Application and Technology](Dokumentation/Application-Technology.md)
-[Branching and Versioning](Dokumentation/Branching-Versioning.md)
-[Meetings und Prozesse](Dokumentation/Meetings-Prozesse.md)
+[Application and Technology](Dokumentation/Application-Technology.md) <br>
+[Branching and Versioning](Dokumentation/Branching-Versioning.md) <br>
+[Meetings und Prozesse](Dokumentation/Meetings-Prozesse.md) <br>
 
 ## Andere Links
