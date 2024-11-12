@@ -1,5 +1,5 @@
 # Application
 
 # Technology
-Backend: Java / Springboot \n
+Backend: Java / Springboot \br
 Datendbank: Postgres
