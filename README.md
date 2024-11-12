@@ -1,16 +1,5 @@
 # M324
 
-## Wichtig!
-
-### Git Commit-Message Regel
-
-Die Git Commit-Mesages sollten standartisiert sein:
-
-- Die Message sollte in Englisch sein
-- Das erste Wort sollte immer ein Verb sein
-- Das Verb sollte in der Form von "it _verb_ + s" sein
-- Falls mehrer Changes hinzugefügt wurden, sollten diese in einer liste (mit "-") aufgeführt werden
-
 ## Wahl Infrastruktur
 
 ### Technologie entscheidung
