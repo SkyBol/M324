@@ -1,6 +1,10 @@
 # M324
 
 ## Wahl Infrastruktur
+### Technologie entscheidung
+Code: Java/Spring boot
+Datenbank: Postgres
+
 ### Git Repository
 Github
 (https://github.com/SkyBol/M324)
