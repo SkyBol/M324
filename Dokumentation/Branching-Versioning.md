@@ -1,5 +1,5 @@
 # Branching
-Wir verwenden Auftrag-/Task-Branching. Dies bedeutet das wir für jeden Task einen neuen Branch erstellen werden. Für Dokumentation / Theorietask werden keine Branches erstellt, es wird direkt auf den Master commited.
+Wir verwenden Aufgaben-/Task-Branching. Dies bedeutet das wir für jeden Task einen neuen Branch erstellen werden. Für Dokumentation / Theorietask werden keine Branches erstellt, es wird direkt auf den Master commited.
 ![grafik](https://github.com/user-attachments/assets/a1a0f457-ce75-4619-9d0d-73da735492d2)
 
 # Versioning
