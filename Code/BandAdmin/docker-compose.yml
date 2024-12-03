@@ -1,6 +1,6 @@
 services:
   db:
-    image: ergonqherren/flagging-guess-db:v4
+    image:
     networks:
       - mynet
     environment:
