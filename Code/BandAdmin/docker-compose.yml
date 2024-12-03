@@ -1,25 +1,38 @@
+version: '3.9'
 services:
-  db:
-    image:
-    networks:
-      - mynet
+  postgres:
+    image: postgres:15
+    container_name: Band-db
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: aub-admin
+      POSTGRES_PASSWORD: secure1234
+      POSTGRES_DB: band-database
     ports:
-      - 4000:5432
-  server:
-    image:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./*.sql:/docker-entrypoint-initdb.d/
     networks:
-      - mynet
-    ports:
-      - 7000:8000
+      - app-network
+  springboot:
+    image:
+    container_name: album-backend
+    depends_on:
+      - postgres
     environment:
       DB_HOST: db
       DB_PORT: 5432
       DB_USER: postgres
       DB_PASSWORD: postgres
       DB_NAME: postgres
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
 networks:
-  mynet:
+  app-network:
     driver: bridge
+
+volumes:
+  postgres_data:
