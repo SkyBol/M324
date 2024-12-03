@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: album-db
+    environment:
+      POSTGRES_USER: aub-admin
+      POSTGRES_PASSWORD: secure1234
+      POSTGRES_DB: album-database
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
+
+  springboot:
+    image: microservice2/v1
+    container_name: album-backend
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/album-database
+      SPRING_DATASOURCE_USERNAME: aub-admin
+      SPRING_DATASOURCE_PASSWORD: secure1234
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
