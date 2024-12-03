@@ -1,0 +1,25 @@
+services:
+  db:
+    image: ergonqherren/flagging-guess-db:v4
+    networks:
+      - mynet
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 4000:5432
+  server:
+    image:
+    networks:
+      - mynet
+    ports:
+      - 7000:8000
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: postgres
+networks:
+  mynet:
+    driver: bridge
