@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   postgres:
     image: postgres:15
@@ -12,6 +11,8 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
 
   springboot:
     image: microservice2/v1
@@ -19,7 +20,7 @@ services:
     depends_on:
       - postgres
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5433/album-database
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/album-database
       SPRING_DATASOURCE_USERNAME: aub-admin
       SPRING_DATASOURCE_PASSWORD: secure1234
     ports:
@@ -27,9 +28,9 @@ services:
     networks:
       - app-network
 
-volumes:
-  postgres_data:
-
 networks:
   app-network:
     driver: bridge
+
+volumes:
+  postgres_data:
