@@ -1,5 +1,5 @@
 services:
-  postgres:
+  postgres-album:
     image: postgres:15
     container_name: album-db
     environment:
@@ -10,7 +10,22 @@ services:
       - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      # - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./album-management/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
+
+  postgres-bands:
+    image: postgres:15
+    container_name: bands-db
+    environment:
+      POSTGRES_USER: aub-admin
+      POSTGRES_PASSWORD: secure1234
+      POSTGRES_DB: bands-database
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data_2:/var/lib/postgresql/data
+      - ./band-management/database/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app-network
 
@@ -18,7 +33,7 @@ services:
     build: ./album-management
     container_name: album-backend
     depends_on:
-      - postgres
+      - postgres-album
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/album-database
       SPRING_DATASOURCE_USERNAME: aub-admin
@@ -34,3 +49,4 @@ networks:
 
 volumes:
   postgres_data:
+  postgres_data_2:
