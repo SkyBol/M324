@@ -1,13 +1,13 @@
-package ch.band.admin.bandadmin;
+package ch.group3.bandmanagement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BandAdminApplication {
+public class BandManagementApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BandAdminApplication.class, args);
+		SpringApplication.run(BandManagementApplication.class, args);
 	}
 
 }

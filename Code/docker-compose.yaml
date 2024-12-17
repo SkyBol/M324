@@ -14,13 +14,27 @@ services:
     networks:
       - app-network
 
-  postgres-bands:
+  album:
+    build: ./album-management
+    container_name: album-backend
+    depends_on:
+      - postgres-album
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-album:5432/album-database
+      SPRING_DATASOURCE_USERNAME: aub-admin
+      SPRING_DATASOURCE_PASSWORD: secure1234
+    ports:
+      - "8081:8080"
+    networks:
+      - app-network
+
+  postgres-band:
     image: postgres:15
-    container_name: bands-db
+    container_name: band-db
     environment:
       POSTGRES_USER: aub-admin
       POSTGRES_PASSWORD: secure1234
-      POSTGRES_DB: bands-database
+      POSTGRES_DB: band-database
     ports:
       - "5432:5432"
     volumes:
@@ -29,19 +43,20 @@ services:
     networks:
       - app-network
 
-  springboot:
-    build: ./album-management
-    container_name: album-backend
+  band:
+    build: ./band-management
+    container_name: band-backend
     depends_on:
-      - postgres-album
+      - postgres-band
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/album-database
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-band:5432/band-database
       SPRING_DATASOURCE_USERNAME: aub-admin
       SPRING_DATASOURCE_PASSWORD: secure1234
     ports:
       - "8080:8080"
     networks:
       - app-network
+
 
 networks:
   app-network:
