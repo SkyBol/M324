@@ -5,7 +5,7 @@ Dieses sollte dazu dienen, gegenseitig einen kleinen Überblick zu verschaffen u
 Scrum Master in unserem Projekt hat Kian Ganz. Wir haben uns für einen Scrum Master entschieden, da die Meetings so geordneter ablaufen. <br>
 
 Unser daily sollte so ablaufen: <br>
-![Grafik](./img/Workflow.jpg)
+![Grafik](./img/Workflow.jpg =200x)
 
 ### Planning
 Um 9:30 beginnt unser Planning. Dort werden neue Issues besprochen und der Zeitaufwand wird geschätzt. Zusätzlich werden jegliche Fragen geklärt.
