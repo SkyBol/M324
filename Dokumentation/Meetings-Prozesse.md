@@ -11,7 +11,7 @@ Unser daily sollte so ablaufen: <br>
 Um 9:30 beginnt unser Planning. Dort werden neue Issues besprochen und der Zeitaufwand wird geschätzt. Zusätzlich werden jegliche Fragen geklärt.
 
 Unser Planning sollte so ablaufen: <br>
-![Grafik](https://assets.digitalocean.com/articles/alligator/boo.svg)
+![Grafik](./img/Workflow-Planning.jpg)
 
 # Prozesse
 In unseren Issues ist eine geschätzte Anzahl an Stunden die gebraucht wird. <br>
