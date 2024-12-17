@@ -5,18 +5,13 @@ Dieses sollte dazu dienen, gegenseitig einen kleinen Überblick zu verschaffen u
 Scrum Master in unserem Projekt hat Kian Ganz. Wir haben uns für einen Scrum Master entschieden, da die Meetings so geordneter ablaufen. <br>
 
 Unser daily sollte so ablaufen: <br>
-Jeder erzählt kurz was er gemacht hat und was als nächstes kommt. <br>
-Scrum Master updated wenn neue Informationen über einen Task oder Änderungen in der Planung passieren. <br>
-Weitere Fragen oder Informationen werden dann periodisch von allen hinzugefügt wenn nötig. <br>
+![Grafik](./img/Workflow.jpg)
 
 ### Planning
 Um 9:30 beginnt unser Planning. Dort werden neue Issues besprochen und der Zeitaufwand wird geschätzt. Zusätzlich werden jegliche Fragen geklärt.
 
 Unser Planning sollte so ablaufen: <br>
-Neue Tasks werden erklärt. <br>
-Details über Tasks werden besprochen falls nötig. <br>
-Neue Tasks werden geschätzt. <br>
-Nötigkeit von weiteren neuen Tasks werden besprochen. <br>
+![Grafik](https://assets.digitalocean.com/articles/alligator/boo.svg)
 
 # Prozesse
 In unseren Issues ist eine geschätzte Anzahl an Stunden die gebraucht wird. <br>
