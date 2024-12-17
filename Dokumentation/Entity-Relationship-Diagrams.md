@@ -1,6 +1,9 @@
+# Systemüberblick
+![grafik](https://github.com/user-attachments/assets/5cd3a4e3-9cef-4678-b360-936396db7b63)
+
 # Entity Relationship Diagrams
 
-Dieses File beschreibt die nötigen Entity relationships für die jeweiligen Microservices.
+Dieser Abschnitt beschreibt die nötigen Entity relationships für die jeweiligen Microservices.
 
 ## Microservice 1
 
