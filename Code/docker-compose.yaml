@@ -10,7 +10,7 @@ services:
       - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./album-management/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./album-management/database/update-schema.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app-network
 
