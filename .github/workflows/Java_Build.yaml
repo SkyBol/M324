@@ -1,0 +1,53 @@
+name: Build Java (Example)
+
+on:
+  pull_request:
+    branches:
+      - develop
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres-album:
+        image: postgres:15
+        env:
+          POSTGRES_USER: aub-admin
+          POSTGRES_PASSWORD: secure1234
+          POSTGRES_DB: album-database
+        ports:
+          - "5433:5432"
+
+      postgres-band:
+        image: postgres:15
+        env:
+          POSTGRES_USER: aub-admin
+          POSTGRES_PASSWORD: secure1234
+          POSTGRES_DB: band-database
+        ports:
+          - "5432:5432"
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21'
+          distribution: 'zulu'
+          java-package: jdk
+
+      - name: Build with Gradle (Album Management)
+        working-directory: ./Code/album-management
+        run: chmod +x ./gradlew && ./gradlew build --no-daemon -Dspring.profiles.active=server
+
+      - name: Build with Gradle (Band Management)
+        working-directory: ./Code/band-management
+        run: chmod +x ./gradlew && ./gradlew build --no-daemon
+  
