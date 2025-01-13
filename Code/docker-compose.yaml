@@ -39,7 +39,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data_2:/var/lib/postgresql/data
-      - ./band-management/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./band-management/database/update-schema.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app-network
 
