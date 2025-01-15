@@ -11,6 +11,6 @@ Ich hatte dies wohl das letzte Mal übersehen :(. Gehe auf spezifische Themen ei
   
 ## 14.01.2024
 Heute hatte ich leider fast keine Zeit um an unserem Projekt zu arbeiten, da ich ein Problem mit der Verbindung von meinem Windows PC zum Datenbank-Dockercontainer hatte. Nach vielen verschiedenen Versuchen das Problem zubeheben, war die Lösung für den aufgewendeten Aufwand viel zu simple:
-Der Port 5432 unter welchem der Container von aussen erreichbar ist, war bereits von einem anderen Prozess auf meinem Computer beleget. Nach dem ich den Port mit ```taskkill /PID <PID> /F``` "abgeschossen" habe, hatte ich wieder zugriff und kpnnte weiterentwicklen.
+Der Port 5432 unter welchem der Container von aussen erreichbar ist, war bereits von einem anderen Prozess auf meinem Computer beleget. Nach dem ich den Port mit ```taskkill /PID <PID> /F``` "abgeschossen" habe, hatte ich wieder Zugriff und konnte weiterentwicklen.
 #### Learings
-Fehlermeldung "Password für Benutzer Falsch" während dem Verbindungsaufbau, kann auch bedeuten: "Port already in use" ;)
+Bei kuriosen Fehlermeldungen während dem Verbindungsaufbau auch mal prüfen, ob der Port schon von einem anderen Service verwendet wird. 
