@@ -9,7 +9,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Constraint(validatedBy = ValidDissolutionDateValidator.class)
-@Target({ElementType.TYPE}) // Auf Klassenebene anwenden
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidDissolutionDate {
 
