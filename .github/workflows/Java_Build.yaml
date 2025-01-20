@@ -22,6 +22,11 @@ jobs:
           POSTGRES_DB: album-database
         ports:
           - "5433:5432"
+        options: >-
+          --health-cmd "pg_isready -U aub-admin"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
 
       postgres-band:
         image: postgres:15
@@ -31,6 +36,11 @@ jobs:
           POSTGRES_DB: band-database
         ports:
           - "5432:5432"
+        options: >-
+          --health-cmd "pg_isready -U aub-admin"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
 
     steps:
       - name: Checkout Repository
@@ -43,11 +53,41 @@ jobs:
           distribution: 'zulu'
           java-package: jdk
 
+      - name: Install Postgres client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+
+      - name: Wait for Postgres album
+        run: |
+          until pg_isready -h localhost -p 5433 -U aub-admin; do
+            echo "Waiting for database..."
+            sleep 2
+          done
+          echo "Database is ready!"
+
+      - name: Manually import SQL albums
+        env:
+          PGPASSWORD: secure1234
+        run: |
+          psql -h localhost -p 5433 -U aub-admin -d album-database -f ./Code/album-management/database/update-schema.sql
+
+      - name: Wait for Postgres band
+        run: |
+          until pg_isready -h localhost -p 5432 -U aub-admin; do
+            echo "Waiting for database..."
+            sleep 2
+          done
+          echo "Database is ready!"
+
+      - name: Manually import SQL band
+        env:
+          PGPASSWORD: secure1234
+        run: |
+          psql -h localhost -p 5432 -U aub-admin -d band-database -f ./Code/band-management/database/update-schema.sql
+
       - name: Build with Gradle (Album Management)
         working-directory: ./Code/album-management
-        run: chmod +x ./gradlew && ./gradlew build --no-daemon -Dspring.profiles.active=server
+        run: chmod +x ./gradlew && ./gradlew build --no-daemon
 
       - name: Build with Gradle (Band Management)
         working-directory: ./Code/band-management
         run: chmod +x ./gradlew && ./gradlew build --no-daemon
-  
