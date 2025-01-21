@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidDissolutionDate {
 
-    String message() default "The Dissolution Date must be before the Founding Date!";
+    String message() default "dissolution date must be before the founding date!";
 
     Class<?>[] groups() default {};
 
