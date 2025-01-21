@@ -44,8 +44,8 @@ services:
       - app-network
 
   band:
-    build: ./band-management
-    container_name: band-backend
+    build:
+      context: ./band-management
     depends_on:
       - postgres-band
     environment:
