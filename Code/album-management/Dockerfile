@@ -1,8 +1,8 @@
 FROM gradle:8.11.1-jdk21 AS build
 
 WORKDIR /album-management
-COPY /album-management/src/main/resources/application.properties .
-RUN gradle build --no-daemon
+COPY . .
+RUN gradle build --no-daemon -x test 
 
 FROM openjdk:21-jdk
 

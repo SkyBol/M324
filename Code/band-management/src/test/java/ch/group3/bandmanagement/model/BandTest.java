@@ -3,10 +3,12 @@ package ch.group3.bandmanagement.model;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.Set;
 
 import static ch.group3.bandmanagement.BandStubs.validBandWithOutDissolutionDate;
@@ -16,6 +18,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class BandTest {
 
 	private Validator validator;
+
+	@BeforeAll
+	static void setLang() {
+		Locale.setDefault(Locale.ENGLISH);
+	}
 
 	@BeforeEach
 	public void setup() {
@@ -69,7 +76,7 @@ class BandTest {
 
 		Set<ConstraintViolation<Band>> violations = validator.validate(band);
 		assertEquals(1, violations.size());
-		assertEquals("The Dissolution Date must be before the Founding Date!", violations.iterator().next()
+		assertEquals("dissolution date must be before the founding date!", violations.iterator().next()
 				.getMessage());
 	}
 
