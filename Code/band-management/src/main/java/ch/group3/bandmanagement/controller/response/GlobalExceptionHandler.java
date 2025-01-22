@@ -1,5 +1,7 @@
 package ch.group3.bandmanagement.controller.response;
 
+import ch.group3.bandmanagement.validation.BandsNotPresentException;
+import ch.group3.bandmanagement.validation.GeneralErrorResponse;
 import ch.group3.bandmanagement.validation.ValidationError;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -31,5 +35,10 @@ public class GlobalExceptionHandler {
 		validationErrorResponse.setStatus(HttpStatus.BAD_REQUEST);
 
 		return new ResponseEntity<>(validationErrorResponse, HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(BandsNotPresentException.class)
+	public ResponseEntity<GeneralErrorResponse> handleBandsNotPresent(BandsNotPresentException ex) {
+		return new ResponseEntity<>(new GeneralErrorResponse(ex.getMessage()), NOT_FOUND);
 	}
 }
