@@ -160,7 +160,7 @@ jobs:
           --health-retries 10
 
       album-endpoints:
-        image: asuzas/album-management:df8ea8569d4fb32b1854ac185a20398c096caff8
+        image: ${{ secrets.DOCKER_USERNAME }}/album-management:${{ github.sha }}
         env:
           SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-album:5432/album-database
           SPRING_DATASOURCE_USERNAME: aub-admin
@@ -170,7 +170,7 @@ jobs:
           - "8081:8080"
 
       band-endpoints:
-        image: asuzas/band-management:df8ea8569d4fb32b1854ac185a20398c096caff8
+        image: ${{ secrets.DOCKER_USERNAME }}/band-management:${{ github.sha }}
         env:
           SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-band:5432/band-database
           SPRING_DATASOURCE_USERNAME: aub-admin
