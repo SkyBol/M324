@@ -23,8 +23,9 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-album:5432/album-database
       SPRING_DATASOURCE_USERNAME: aub-admin
       SPRING_DATASOURCE_PASSWORD: secure1234
+      BAND_SERVICE_URL: http://band:8081
     ports:
-      - "8081:8080"
+      - "8081:8081"
     networks:
       - app-network
 
