@@ -16,6 +16,13 @@ Github
 
 Github Actions
 
+#### Act
+
+Running GitHub Actions locally for testing:
+(https://github.com/nektos/act)
+act --secret-file act.secrets
+
+
 ### Kanban Board
 
 Github Projects: Kanban
