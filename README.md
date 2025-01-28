@@ -14,7 +14,7 @@ Github
 
 ### CI/CD Prozesse
 
-[Pipeline](./Dokumentation/img/pipeline.png)
+![Pipeline](./Dokumentation/img/pipeline.png)
 ### Kanban Board
 
 Github Projects: Kanban
