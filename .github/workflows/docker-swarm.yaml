@@ -31,7 +31,7 @@ jobs:
       - name: Copy Docker Compose file to EC2
         run: |
           echo "Copying docker-compose.yml to 98.81.234.83"
-          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/github_actions_key ./docker-compose.yml ec2-user@98.81.234.83:/home/ec2-user/app/
+          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/github_actions_key aws/swarm/docker-compose.yaml ec2-user@98.81.234.83:/home/ec2-user/app/
 
       - name: Deploy to Docker Swarm
         run: |
