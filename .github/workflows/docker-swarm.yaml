@@ -1,9 +1,13 @@
 name: Deploy to Docker Swarm
 
 on:
-  push:
+  pull_request:
     branches:
       - develop
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 jobs:
   deploy:
