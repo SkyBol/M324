@@ -24,8 +24,8 @@ jobs:
 
       - name: Copy SQL files to EC2
         run: |
-          scp -i ~/.ssh/authorized_keys ./album.sql ec2-user@$MANAGER_IP:/home/ec2-user/app/
-          scp -i ~/.ssh/authorized_keys ./band.sql ec2-user@$MANAGER_IP:/home/ec2-user/app/
+          scp -i ~/.ssh/authorized_keys aws/album.sql ec2-user@$MANAGER_IP:/home/ec2-user/app/
+          scp -i ~/.ssh/authorized_keys aws/band.sql ec2-user@$MANAGER_IP:/home/ec2-user/app/
 
       - name: Copy Docker Compose file to EC2
         run: |
