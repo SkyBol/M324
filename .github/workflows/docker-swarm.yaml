@@ -39,19 +39,19 @@ jobs:
           ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/github_actions_key ec2-user@98.81.234.83 << 'EOF'
             docker stack deploy --compose-file /home/ec2-user/app/docker-compose.yaml my-app
           EOF
-run-tests:
-  needs: deploy
-  runs-on: ubuntu-latest
+  run-tests:
+    needs: deploy
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Install Newman (Postman CLI)
-      run: |
-        npm install -g newman
+      - name: Install Newman (Postman CLI)
+        run: |
+          npm install -g newman
 
-    - name: Run Postman Tests against Swarm
-      run: |
-        newman run aws/swarm/band-album-tests.postman_collection.json
+      - name: Run Postman Tests against Swarm
+        run: |
+          newman run aws/swarm/band-album-tests.postman_collection.json
 
