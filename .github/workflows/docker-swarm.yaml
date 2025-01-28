@@ -21,6 +21,8 @@ jobs:
 
       - name: Copy SQL files to EC2
         run: |
+          echo "Creating app directory on EC2"
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/github_actions_key ec2-user@98.81.234.83 "mkdir -p /home/ec2-user/app"
           echo "Copying album.sql to 98.81.234.83"
           scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/github_actions_key aws/album.sql ec2-user@98.81.234.83:/home/ec2-user/app/
           echo "Copying band.sql to 98.81.234.83"
