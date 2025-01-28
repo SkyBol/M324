@@ -1,0 +1,34 @@
+name: Deploy to Docker Swarm
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      MANAGER_IP: 98.81.234.83
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.AUB_PRIVATE_KEY }}
+
+      - name: Copy SQL files to EC2
+        run: |
+          scp -i ~/.ssh/github_actions_key ./album.sql ec2-user@$MANAGER_IP:/home/ec2-user/app/
+          scp -i ~/.ssh/github_actions_key ./band.sql ec2-user@$MANAGER_IP:/home/ec2-user/app/
+
+      - name: Deploy to Docker Swarm
+        run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@$MANAGER_IP << 'EOF'
+            scp -i ~/.ssh/github_actions_key docker-compose.yml ec2-user@$MANAGER_IP:/home/ec2-user/app/
+            docker stack deploy --compose-file /home/ec2-user/app/docker-compose.yml my-app
+          EOF
