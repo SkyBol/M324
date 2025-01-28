@@ -1,0 +1,28 @@
+name: Restart Docker-Compose Service
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  restart-docker-compose:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Restart Docker-Compose
+      run: |
+        ssh -o StrictHostKeyChecking=no ec2-user@3.87.0.125 << EOF
+          cd ~
+          docker compose down --rmi 'all'
+          docker compose up -d
+        EOF

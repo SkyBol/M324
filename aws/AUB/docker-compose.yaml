@@ -1,0 +1,67 @@
+services:
+  postgres-album:
+    image: postgres:15
+    container_name: album-db
+    environment:
+      POSTGRES_USER: aub-admin
+      POSTGRES_PASSWORD: secure1234
+      POSTGRES_DB: album-database
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./album.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
+
+  album:
+    image: asuzas/album-management:latest
+    container_name: album-backend
+    depends_on:
+      - postgres-album
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-album:5432/album-database
+      SPRING_DATASOURCE_USERNAME: aub-admin
+      SPRING_DATASOURCE_PASSWORD: secure1234
+      BAND_SERVICE_URL: http://band:8080
+    ports:
+      - "8081:8081"
+    networks:
+      - app-network
+
+  postgres-band:
+    image: postgres:15
+    container_name: band-db
+    environment:
+      POSTGRES_USER: aub-admin
+      POSTGRES_PASSWORD: secure1234
+      POSTGRES_DB: band-database
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data_2:/var/lib/postgresql/data
+      - ./band.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
+
+  band:
+    image: asuzas/band-management:latest
+    depends_on:
+      - postgres-band
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-band:5432/band-database
+      SPRING_DATASOURCE_USERNAME: aub-admin
+      SPRING_DATASOURCE_PASSWORD: secure1234
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  postgres_data_2:
