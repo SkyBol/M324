@@ -17,7 +17,11 @@ jobs:
     - name: Set up SSH
       uses: webfactory/ssh-agent@v0.5.3
       with:
+<<<<<<< Updated upstream
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+=======
+        ssh-private-key: ${{ secrets.AUB_PRIVATE_KEY }}
+>>>>>>> Stashed changes
 
     - name: Restart Docker-Compose
       run: |
