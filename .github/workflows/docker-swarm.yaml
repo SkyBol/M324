@@ -39,30 +39,19 @@ jobs:
           ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/github_actions_key ec2-user@98.81.234.83 << 'EOF'
             docker stack deploy --compose-file /home/ec2-user/app/docker-compose.yaml my-app
           EOF
-  run-tests:
-    needs: deploy
-    runs-on: ubuntu-latest
+run-tests:
+  needs: deploy
+  runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          java-version: '21'
-          distribution: 'zulu'
+    - name: Install Newman (Postman CLI)
+      run: |
+        npm install -g newman
 
-      - name: Set up Gradle
-        uses: gradle/wrapper-validation-action@v1
-
-      - name: Build and run unit tests for album-service
-        run: |
-          cd album-management  # Wechsle in das Album-Projektverzeichnis
-          ./gradlew clean test  # Führe Unit-Tests für Album-Service aus
-
-      - name: Build and run unit tests for band-service
-        run: |
-          cd band-management  # Wechsle in das Band-Projektverzeichnis
-          ./gradlew clean test  # Führe Unit-Tests für Band-Service aus
+    - name: Run Postman Tests against Swarm
+      run: |
+        newman run aws/swarm/band-album-tests.postman_collection.json
 
