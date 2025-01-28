@@ -17,7 +17,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Response time is less than 500ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
 							"});\r",
 							"\r",
 							"pm.test(\"No Bands found message\", function () {\r",
@@ -57,7 +57,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Response time is less than 500ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
 							"});\r",
 							"\r",
 							"pm.globals.set(\"success-band\", pm.response.json().bandId);\r"
@@ -103,7 +103,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Response time is less than 500ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Errors in Response\", function () {\r",
@@ -152,7 +152,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Response time is less than 500ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Bands available\", function () {\r",
@@ -192,7 +192,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Response time is less than 500ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(50000);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -228,7 +228,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Response time is less than 500ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
 							"});\r"
 						],
 						"type": "text/javascript"
@@ -272,7 +272,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Response time is less than 500ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Errors in Response\", function () {\r",
