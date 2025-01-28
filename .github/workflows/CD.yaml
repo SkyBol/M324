@@ -21,7 +21,7 @@ jobs:
 
     - name: Restart Docker-Compose
       run: |
-        ssh -o StrictHostKeyChecking=no ec2-user@3.87.0.125 << EOF
+        ssh -o StrictHostKeyChecking=no ec2-user@50.17.147.253 << EOF
           cd ~
           docker compose down --rmi 'all'
           docker compose up -d
