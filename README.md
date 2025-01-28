@@ -31,8 +31,8 @@ https://tbzedu-my.sharepoint.com/:x:/r/personal/sky_bollin_edu_tbz_ch/Documents/
 
 ### Dokumentation
 
-Dokumentation im Folder 'Dokumentation' zu finden
-[Dokumentation](Dokumenation/Application-Technology.md) <br>
+Dokumentation im Folder 'Dokumentation' zu finden <br>
+[Dokumentation](Dokumentation/Application-Technology.md) <br>
 
 ### Persönliches Repository
 
@@ -40,14 +40,10 @@ Wird auf Branches in diesem Repo geführt. Diese Branches müssen von den Github
 
 # Band und Alben
 
-## Theorieinhalte
-
 ## Themenblöcke
 
 [Application and Technology](Dokumentation/Application-Technology.md) <br>
 [Branching and Versioning](Dokumentation/Branching-Versioning.md) <br>
 [CI-Concept](Dokumentation/Concept-CI.md) <br>
-[Entity-Relationship Diagrams](Dokumentation/Entity-Relationship-Diagrams.md)
+[Entity-Relationship Diagrams](Dokumentation/Entity-Relationship-Diagrams.md) <br>
 [Meetings und Prozesse](Dokumentation/Meetings-Prozesse.md) <br>
-
-## Andere Links
