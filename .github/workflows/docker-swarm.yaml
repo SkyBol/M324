@@ -27,8 +27,8 @@ jobs:
 
       - name: Copy SQL files to EC2
         run: |
-          scp -i ~/.ssh/github_actions_key ./album.sql ec2-user@$MANAGER_IP:/home/ec2-user/app/
-          scp -i ~/.ssh/github_actions_key ./band.sql ec2-user@$MANAGER_IP:/home/ec2-user/app/
+          scp -i ~/.ssh/github_actions_key aws/album.sql ec2-user@$MANAGER_IP:/home/ec2-user/app/
+          scp -i ~/.ssh/github_actions_key aws/band.sql ec2-user@$MANAGER_IP:/home/ec2-user/app/
 
       - name: Deploy to Docker Swarm
         run: |

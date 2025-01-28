@@ -12,7 +12,7 @@ services:
       - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - aws/album.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./album.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app-network
     deploy:
@@ -50,7 +50,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data_2:/var/lib/postgresql/data
-      - aws/band.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./band.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app-network
     deploy:
