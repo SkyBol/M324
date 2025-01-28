@@ -3,7 +3,7 @@ name: Deploy to Docker Swarm
 on:
   push:
     branches:
-      - develop
+      - develop-AUB-41
 
 jobs:
   deploy:
