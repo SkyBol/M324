@@ -37,5 +37,5 @@ jobs:
         run: |
           echo "Deploying to Docker Swarm on 98.81.234.83"
           ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/github_actions_key ec2-user@98.81.234.83 << 'EOF'
-            docker stack deploy --compose-file /home/ec2-user/app/docker-compose.yml my-app
+            docker stack deploy --compose-file /home/ec2-user/app/docker-compose.yaml my-app
           EOF
