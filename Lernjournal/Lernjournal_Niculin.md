@@ -18,18 +18,20 @@ Bei kuriosen Fehlermeldungen während dem Verbindungsaufbau auch mal prüfen, ob
 ## 28.01.2025
 Heute war sehr spannend, da ich mein Wissen mit Git Hub Actions erweitern konnte. Im Zusammenhang mit dem CD Task habe ich unsere App in einem neuen Workflow auf einen Docker Swarm deployed. Dies ging wie folgt:
 1. Manager Instanz in AWS erstellt
-2. Darauf den command '''docker swarm init''' ausgeführt
+2. Darauf den command ```docker swarm init```ausgeführt
 3. Worker Instanz in AWS erstellt
-4. Darauf den command '''docker swarm join''' um dem swarm manager zu joinen
+4. Darauf den command ```docker swarm join``` um dem swarm manager zu joinen
 5. Key pair generiert um sich mit github actions zu authentifizieren
-6. '''    deploy:
+6. ```
+   deploy:
       replicas: 3
       restart_policy:
-        condition: on-failure'''
+        condition: on-failure
+   ```
    Im docker-compose ergänzt
-7. Workflow einrichten --> pulled die aktuellsten Images (erstellt in CI Pipeline des PR), kopiert die db files auf die instanz, sowie das docker compose file, und führt dann folgenden command aus damit die App auf dem swarm leuft: '''docker stack deploy --compose-file /home/ec2-user/app/docker-compose.yaml app'''
+7. Workflow einrichten --> pulled die aktuellsten Images (erstellt in CI Pipeline des PR), kopiert die db files auf die instanz, sowie das docker compose file, und führt dann folgenden command aus damit die App auf dem swarm leuft: ```docker stack deploy --compose-file /home/ec2-user/app/docker-compose.yaml app```
 8. Der Workflow wird jeweils bei einem push in den dev Branch getriggerd
-9. Resultat aus docker stack services ls:
+9. Resultat aus ```docker stack services ls```:
 ![grafik](https://github.com/user-attachments/assets/f8cefaf8-70fb-4502-8169-7564108faec0)
 10. Für die Datenbank haben wir jeweils nur eine Replica, für die beiden Springapps 2.
 
