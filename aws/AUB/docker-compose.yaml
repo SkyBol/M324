@@ -10,12 +10,12 @@ services:
       - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./album-management/database/update-schema.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./album.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app-network
 
   album:
-    build: ./album-management
+    image: asuzas/album-management:latest
     container_name: album-backend
     depends_on:
       - postgres-album
@@ -40,13 +40,12 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data_2:/var/lib/postgresql/data
-      - ./band-management/database/update-schema.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./band.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app-network
 
   band:
-    build:
-      context: ./band-management
+    image: asuzas/band-management:latest
     depends_on:
       - postgres-band
     environment:

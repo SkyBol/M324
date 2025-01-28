@@ -17,6 +17,13 @@ Unsere CI Pipeline über Github actions sieht wie folgt aus <br>
 ![Pipeline](./Dokumentation/img/pipeline.png) <br>
 
 
+#### Act
+
+Running GitHub Actions locally for testing:
+(https://github.com/nektos/act)
+act --secret-file act.secrets
+
+
 ### Kanban Board
 
 Github Projects: Kanban

@@ -1,0 +1,198 @@
+name: Build Java (Example)
+
+on:
+  pull_request:
+    branches:
+      - develop
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-22.04
+
+    services:
+      postgres-album:
+        image: postgres:15
+        env:
+          POSTGRES_USER: aub-admin
+          POSTGRES_PASSWORD: secure1234
+          POSTGRES_DB: album-database
+        ports:
+          - "5433:5432"
+        options: >-
+          --health-cmd "pg_isready -U aub-admin"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+      postgres-band:
+        image: postgres:15
+        env:
+          POSTGRES_USER: aub-admin
+          POSTGRES_PASSWORD: secure1234
+          POSTGRES_DB: band-database
+        ports:
+          - "5432:5432"
+        options: >-
+          --health-cmd "pg_isready -U aub-admin"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21'
+          distribution: 'zulu'
+          java-package: jdk
+
+      - name: Install Postgres client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+
+      - name: Wait for Postgres album
+        run: |
+          until pg_isready -h localhost -p 5433 -U aub-admin; do
+            echo "Waiting for database..."
+            sleep 2
+          done
+          echo "Database is ready!"
+
+      - name: Manually import SQL albums
+        env:
+          PGPASSWORD: secure1234
+        run: |
+          psql -h localhost -p 5433 -U aub-admin -d album-database -f ./Code/album-management/database/update-schema.sql
+
+      - name: Wait for Postgres band
+        run: |
+          until pg_isready -h localhost -p 5432 -U aub-admin; do
+            echo "Waiting for database..."
+            sleep 2
+          done
+          echo "Database is ready!"
+
+      - name: Manually import SQL band
+        env:
+          PGPASSWORD: secure1234
+        run: |
+          psql -h localhost -p 5432 -U aub-admin -d band-database -f ./Code/band-management/database/update-schema.sql
+
+      - name: Build with Gradle (Album Management)
+        working-directory: ./Code/album-management
+        run: chmod +x ./gradlew && ./gradlew build --no-daemon
+
+      - name: Build with Gradle (Band Management)
+        working-directory: ./Code/band-management
+        run: chmod +x ./gradlew && ./gradlew build --no-daemon
+
+  build-docker:
+    runs-on: ubuntu-22.04
+
+    needs: unit-test
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker Images
+        working-directory: ./Code
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/album-management:latest ./album-management
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/band-management:latest ./band-management
+  
+      - name: Push Docker Images
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/album-management:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/band-management:latest
+
+      - name: Tag Docker Images with Git SHA
+        run: |
+          docker tag ${{ secrets.DOCKER_USERNAME }}/album-management:latest ${{ secrets.DOCKER_USERNAME }}/album-management:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/album-management:${{ github.sha }}
+          docker tag ${{ secrets.DOCKER_USERNAME }}/band-management:latest ${{ secrets.DOCKER_USERNAME }}/band-management:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/band-management:${{ github.sha }}
+
+  postman-test:
+    runs-on: ubuntu-22.04
+
+    needs: build-docker
+
+    services:
+      postgres-album:
+        image: postgres:15
+        env:
+          POSTGRES_USER: aub-admin
+          POSTGRES_PASSWORD: secure1234
+          POSTGRES_DB: album-database
+        ports:
+          - "5433:5432"
+        options: >-
+          --health-cmd "pg_isready -U aub-admin"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+      postgres-band:
+        image: postgres:15
+        env:
+          POSTGRES_USER: aub-admin
+          POSTGRES_PASSWORD: secure1234
+          POSTGRES_DB: band-database
+        ports:
+          - "5432:5432"
+        options: >-
+          --health-cmd "pg_isready -U aub-admin"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+      album-endpoints:
+        image: asuzas/album-management:${{ github.sha }}
+        env:
+          SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-album:5432/album-database
+          SPRING_DATASOURCE_USERNAME: aub-admin
+          SPRING_DATASOURCE_PASSWORD: secure1234
+          BAND_SERVICE_URL: http://band-endpoints:8080
+        ports:
+          - "8081:8081"
+
+      band-endpoints:
+        image: asuzas/band-management:${{ github.sha }}
+        env:
+          SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-band:5432/band-database
+          SPRING_DATASOURCE_USERNAME: aub-admin
+          SPRING_DATASOURCE_PASSWORD: secure1234
+        ports:
+          - "8080:8080"
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Newman (Postman CLI)
+        run: npm install -g newman
+
+      - name: Run Postman Tests
+        run: |
+          newman run ./Code/band-album-tests.postman_collection.json \
+            --reporters cli,junit \
+            --reporter-junit-export newman-report.xml
+      - name: Upload Postman Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postman-test-results
+          path: newman-report.xml
